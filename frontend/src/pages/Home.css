@@ -58,6 +58,16 @@
   .feature p {
     color: #666;
   }
+  .ReactModalPortal{
+    text-align: center;
+  }
+  .ReactModalPortal ol li::marker {
+    padding: 5px;
+    background-color: red;
+    color: red;
+    border: 5px red solid;
+    border-radius:  2px;
+  }
   
   /* Responsive styles */
   @media (max-width: 768px) {
