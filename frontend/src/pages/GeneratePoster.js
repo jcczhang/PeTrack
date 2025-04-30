@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './GeneratePoster.css';
+import '../styles/GeneratePoster.css';
 
 function GeneratePoster() {
   const navigate = useNavigate();

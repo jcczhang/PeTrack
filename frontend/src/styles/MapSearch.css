@@ -1,0 +1,14 @@
+.map-search {
+  padding: 2rem 0;
+}
+
+.map-search h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.map-search p {
+  text-align: center;
+  color: #666;
+} 

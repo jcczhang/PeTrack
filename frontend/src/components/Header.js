@@ -22,7 +22,9 @@ function Header() {
         <nav className={`nav-menu ${menuOpen ? 'open' : ''}`}>
           <ul>
             <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
-            <li><Link to="/missing-pet" onClick={() => setMenuOpen(false)}>Report Missing</Link></li>
+            <li><Link to="/report-pet" onClick={() => setMenuOpen(false)}>Report Pet</Link></li>
+            <li><Link to="/lost-and-found" onClick={() => setMenuOpen(false)}>Lost & Found</Link></li>
+            <li><Link to="/generate-poster" onClick={() => setMenuOpen(false)}>Generate Poster</Link></li>
             <li><Link to="/map-search" onClick={() => setMenuOpen(false)}>Map Search</Link></li>
           </ul>
         </nav>

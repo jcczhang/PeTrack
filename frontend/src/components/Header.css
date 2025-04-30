@@ -66,10 +66,28 @@
     color: #333;
     text-decoration: none;
     font-weight: 500;
+    position: relative;
   }
   
   .nav-menu a:hover {
     color: #f45b4f;
+  }
+
+  .coming-soon {
+    position: relative;
+    opacity: 0.7;
+  }
+
+  .coming-soon-badge {
+    position: absolute;
+    top: -8px;
+    right: -40px;
+    background-color: #f45b4f;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: bold;
   }
   
   /* Responsive styles */
@@ -102,6 +120,12 @@
     .nav-menu li {
       margin: 0;
       padding: 10px 20px;
+    }
+
+    .coming-soon-badge {
+      position: static;
+      display: inline-block;
+      margin-left: 8px;
     }
   }
   .logo {

@@ -1,56 +1,10 @@
 import React, { useState } from 'react';
-import './LostAndFound.css';
+import '../styles/LostAndFound.css';
+import { lostPets, foundPets } from '../data/petsData';
 
 function LostAndFound() {
   const [activeTab, setActiveTab] = useState('lost'); // 'lost' or 'found'
   const [searchTerm, setSearchTerm] = useState('');
-
-  // Sample data - replace with actual data from your backend
-  const lostPets = [
-    {
-      id: 1,
-      name: 'Max',
-      type: 'Dog',
-      breed: 'Golden Retriever',
-      lastSeen: '2023-05-15',
-      location: 'Berkeley, CA',
-      image: '/sample-pets/dog1.jpg',
-      description: 'Friendly golden retriever with red collar'
-    },
-    {
-      id: 2,
-      name: 'Luna',
-      type: 'Cat',
-      breed: 'Siamese',
-      lastSeen: '2023-05-10',
-      location: 'Oakland, CA',
-      image: '/sample-pets/cat1.jpg',
-      description: 'Blue-eyed siamese with distinctive markings'
-    }
-  ];
-
-  const foundPets = [
-    {
-      id: 3,
-      name: 'Unknown',
-      type: 'Dog',
-      breed: 'Labrador',
-      foundDate: '2023-05-12',
-      location: 'San Francisco, CA',
-      image: '/sample-pets/dog2.jpg',
-      description: 'Friendly black lab found near Golden Gate Park'
-    },
-    {
-      id: 4,
-      name: 'Unknown',
-      type: 'Cat',
-      breed: 'Tabby',
-      foundDate: '2023-05-14',
-      location: 'Berkeley, CA',
-      image: '/sample-pets/cat2.jpg',
-      description: 'Orange tabby with white paws'
-    }
-  ];
 
   const filteredPets = (activeTab === 'lost' ? lostPets : foundPets).filter(pet =>
     pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

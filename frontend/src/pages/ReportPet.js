@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ReportPet.css';
+import '../styles/ReportPet.css';
+import { addLostPet, addFoundPet } from '../data/petsData';
 
 function ReportPet() {
   const navigate = useNavigate();
@@ -35,9 +36,45 @@ function ReportPet() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically handle the form submission
-    // For now, we'll just navigate back to home
-    navigate('/');
+    
+    // Create a new pet object
+    const newPet = {
+      name: formData.petName,
+      type: formData.petType,
+      breed: formData.breed,
+      location: formData.location,
+      description: formData.description,
+      image: formData.photos[0] ? URL.createObjectURL(formData.photos[0]) : '/sample-pets/default.jpg',
+      ...(formData.status === 'lost' 
+        ? { lastSeen: formData.date }
+        : { foundDate: formData.date }
+      )
+    };
+
+    // Add the pet to the appropriate list
+    if (formData.status === 'lost') {
+      addLostPet(newPet);
+      // For lost pets, navigate to poster templates with the form data
+      navigate('/poster-templates', { 
+        state: { 
+          formData: {
+            petName: formData.petName,
+            petType: formData.petType,
+            breed: formData.breed,
+            sex: formData.sex,
+            color: formData.color,
+            weight: formData.weight,
+            lastSeenLocation: formData.location,
+            additionalDetails: formData.description,
+            petImage: formData.photos[0]
+          }
+        }
+      });
+    } else {
+      addFoundPet(newPet);
+      // For found pets, just go to lost and found page
+      navigate('/lost-and-found');
+    }
   };
 
   const nextStep = () => {

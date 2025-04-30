@@ -1,10 +1,10 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import './PosterTemplates.css';
+import { useLocation, useNavigate } from 'react-router-dom';
+import '../styles/PosterTemplates.css';
 
 function PosterTemplates() {
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
   const formData = location.state?.formData;
 
   const templates = [
@@ -35,47 +35,52 @@ function PosterTemplates() {
   ];
 
   const handleTemplateSelect = (templateId) => {
-    // Navigate to a preview page with the selected template and form data
-    navigate('/preview-poster', { 
-      state: { 
-        templateId,
-        formData 
-      }
-    });
+    if (!formData) {
+      console.error('No form data available');
+      return;
+    }
+    navigate('/preview-poster', { state: { formData, templateId } });
   };
 
-  return (
-    <div className="templates-page">
-      <div className="container">
-        <h1>Choose a Poster Template</h1>
-        <p className="subtitle">Select a design that best suits your needs</p>
-        
-        <div className="templates-grid">
-          {templates.map(template => (
-            <div 
-              key={template.id} 
-              className="template-card"
-              onClick={() => handleTemplateSelect(template.id)}
-            >
-              <div className="template-preview">
-                <img src={template.preview} alt={`${template.name} template`} />
-              </div>
-              <div className="template-info">
-                <h3>{template.name}</h3>
-                <p>{template.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+  if (!formData) {
+    return (
+      <div className="error-message">
+        <h2>No form data found</h2>
+        <button onClick={() => navigate('/report-pet')} className="btn btn-primary">
+          Create New Report
+        </button>
+      </div>
+    );
+  }
 
-        <div className="navigation-buttons">
-          <button 
-            className="btn btn-secondary"
-            onClick={() => navigate('/generate-poster')}
+  return (
+    <div className="templates-container">
+      <h1>Choose a Poster Template</h1>
+      <div className="templates-grid">
+        {templates.map(template => (
+          <div 
+            key={template.id} 
+            className="template-card"
+            onClick={() => handleTemplateSelect(template.id)}
           >
-            Back to Form
-          </button>
-        </div>
+            <div className="template-preview">
+              <img src={template.preview} alt={`${template.name} template`} />
+            </div>
+            <div className="template-info">
+              <h3>{template.name}</h3>
+              <p>{template.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="navigation-buttons">
+        <button 
+          className="btn btn-secondary"
+          onClick={() => navigate('/lost-and-found')}
+        >
+          Back to Lost & Found
+        </button>
       </div>
     </div>
   );

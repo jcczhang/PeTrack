@@ -1,0 +1,107 @@
+export const lostPets = [
+  {
+    id: 1,
+    name: 'Max',
+    type: 'Dog',
+    breed: 'Golden Retriever',
+    lastSeen: '2023-05-15',
+    location: 'Berkeley, CA',
+    image: '/sample-pets/dog1.jpg',
+    description: 'Friendly golden retriever with red collar',
+    coordinates: { lat: 37.8719, lng: -122.2585 }
+  },
+  {
+    id: 2,
+    name: 'Luna',
+    type: 'Cat',
+    breed: 'Siamese',
+    lastSeen: '2023-05-10',
+    location: 'Oakland, CA',
+    image: '/sample-pets/cat1.jpg',
+    description: 'Blue-eyed siamese with distinctive markings',
+    coordinates: { lat: 37.8044, lng: -122.2711 }
+  }
+];
+
+export const foundPets = [
+  {
+    id: 3,
+    name: 'Unknown',
+    type: 'Dog',
+    breed: 'Labrador',
+    foundDate: '2023-05-12',
+    location: 'San Francisco, CA',
+    image: '/sample-pets/dog2.jpg',
+    description: 'Friendly black lab found near Golden Gate Park',
+    coordinates: { lat: 37.7749, lng: -122.4194 }
+  },
+  {
+    id: 4,
+    name: 'Unknown',
+    type: 'Cat',
+    breed: 'Tabby',
+    foundDate: '2023-05-14',
+    location: 'Berkeley, CA',
+    image: '/sample-pets/cat2.jpg',
+    description: 'Orange tabby with white paws',
+    coordinates: { lat: 37.8719, lng: -122.2585 }
+  }
+];
+
+export const petTypes = [
+  'Dog',
+  'Cat',
+  'Bird',
+  'Rabbit',
+  'Hamster',
+  'Guinea Pig',
+  'Turtle',
+  'Other'
+];
+
+export const commonBreeds = {
+  Dog: [
+    'Labrador Retriever',
+    'German Shepherd',
+    'Golden Retriever',
+    'Bulldog',
+    'Beagle',
+    'Poodle',
+    'Husky',
+    'Other'
+  ],
+  Cat: [
+    'Siamese',
+    'Persian',
+    'Maine Coon',
+    'Ragdoll',
+    'Bengal',
+    'Sphynx',
+    'Tabby',
+    'Other'
+  ]
+};
+
+// Function to add a new lost pet
+export const addLostPet = (newPet) => {
+  const newId = Math.max(...lostPets.map(pet => pet.id)) + 1;
+  const petWithId = {
+    ...newPet,
+    id: newId,
+    coordinates: { lat: 37.7749, lng: -122.4194 } // Default to SF coordinates, can be updated later
+  };
+  lostPets.push(petWithId);
+  return petWithId;
+};
+
+// Function to add a new found pet
+export const addFoundPet = (newPet) => {
+  const newId = Math.max(...foundPets.map(pet => pet.id)) + 1;
+  const petWithId = {
+    ...newPet,
+    id: newId,
+    coordinates: { lat: 37.7749, lng: -122.4194 } // Default to SF coordinates, can be updated later
+  };
+  foundPets.push(petWithId);
+  return petWithId;
+}; 
