@@ -44,6 +44,7 @@ function MapSearch() {
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
 
   const [address, setAddress] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const mapRef = useRef(null);
 
 
@@ -84,13 +85,14 @@ function MapSearch() {
 
   const handleSearch = async () => {
     if (!address) return;
+    setIsLoading(true);
     try {
       const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`);
       const data = await response.json();
       if (data.length > 0) {
         const { lat, lon } = data[0];
-        setMapCenter([parseFloat(lat), parseFloat(lon)]); // 💥 动态更新地图中心
-        setSearchedAddress(address); // 💥 保存搜索的文字
+        setMapCenter([parseFloat(lat), parseFloat(lon)]);
+        setSearchedAddress(address);
         if (mapRef.current) {
           mapRef.current.flyTo([parseFloat(lat), parseFloat(lon)], 15, {
             animate: true,
@@ -98,7 +100,6 @@ function MapSearch() {
           });
         }
   
-        
         const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(node[amenity~\"veterinary|animal_shelter\"](around:1500,${lat},${lon}););out;`;
         const res = await fetch(overpassUrl);
         const json = await res.json();
@@ -120,10 +121,11 @@ function MapSearch() {
         });
         
         setNearbyPlaces(placesWithReasons);
-        
       }
     } catch (err) {
       console.error('Error fetching geolocation or places:', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -169,8 +171,28 @@ function MapSearch() {
           onChange={(e) => setAddress(e.target.value)}
           style={{ padding: '10px', flex: 1 }}
         />
-        <button onClick={handleSearch} style={{ padding: '10px 20px' }}>Search Nearby Places</button>
+        <button 
+          onClick={handleSearch} 
+          style={{ padding: '10px 20px' }}
+          disabled={isLoading}
+        >
+          {isLoading ? 'Searching...' : 'Search Nearby Places'}
+        </button>
       </div>
+
+      {isLoading && (
+        <div style={{ 
+          textAlign: 'center', 
+          margin: '20px 0',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '10px'
+        }}>
+          <div className="loading-spinner"></div>
+          <p>Searching for nearby places...</p>
+        </div>
+      )}
 
       <div className="map-container-wrapper">
 
@@ -232,7 +254,7 @@ function MapSearch() {
 
         {searchedAddress && nearbyPlaces.length > 0 && (
   <div className="search-results" style={{ marginTop: '20px' }}>
-    <h2>According to your search area “{searchedAddress}”，we find out: </h2>
+    <h2>According to your search area "{searchedAddress}"，we find out: </h2>
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
       {nearbyPlaces.map((place) => (
         <div
