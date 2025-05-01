@@ -93,3 +93,27 @@
     }
   }
   
+
+  .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+
+
+  .btn-tertiary {
+    background-color: #f45b4f; 
+    color: white;
+  }
+  
+  .btn-tertiary:hover {
+    background-color: #e74c3c;
+    color: white;
+
+  }
+  

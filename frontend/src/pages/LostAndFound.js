@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/LostAndFound.css';
 import { lostPets, foundPets } from '../data/petsData';
+import { Link } from 'react-router-dom';
 
 function LostAndFound() {
   const [activeTab, setActiveTab] = useState('lost'); // 'lost' or 'found'
@@ -44,7 +45,7 @@ function LostAndFound() {
 
         <div className="pets-grid">
           {filteredPets.map(pet => (
-            <div key={pet.id} className="pet-card">
+            <div key={pet.id} className="pet-card" id={`pet-${pet.id}`}>
               <div className="pet-image">
                 <img src={pet.image} alt={pet.name} />
               </div>
@@ -55,7 +56,12 @@ function LostAndFound() {
                 <p><strong>Location:</strong> {pet.location}</p>
                 <p><strong>{activeTab === 'lost' ? 'Last Seen:' : 'Found Date:'}</strong> {activeTab === 'lost' ? pet.lastSeen : pet.foundDate}</p>
                 <p className="description">{pet.description}</p>
-                <button className="btn btn-primary">Contact Owner</button>
+
+                <Link to={`/pet/${pet.id}`} className="btn btn-primary">
+                  Contact Owner
+                </Link>
+
+                {/* <button className="btn btn-primary">Contact Owner</button> */}
               </div>
             </div>
           ))}
