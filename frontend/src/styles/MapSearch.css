@@ -32,28 +32,33 @@
 
 .map-container-wrapper {
   width: 100%;
-  max-width: 900px;
+  max-width: 1200px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   gap: 20px;
   margin-bottom: 20px;
 }
 
 .map-container-wrapper .map-container {
   height: 700px;
-  width: 100%;
-  max-width: 900px;
+  width: 60%;
+  min-width: 600px;
 }
 
 .search-results {
-  width: 100%;
-  max-width: 900px;
-  margin-top: 20px;
+  width: 40%;
+  min-width: 400px;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+.search-results h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
 }
 
 .loading-spinner {
