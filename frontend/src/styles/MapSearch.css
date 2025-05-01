@@ -1,6 +1,7 @@
-
 .map-search {
   padding: 2rem 0;
+  position: relative;
+  z-index: 1; /* Lower z-index than navbar */
 }
 
 .map-search h1 {
