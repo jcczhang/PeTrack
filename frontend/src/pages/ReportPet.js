@@ -21,7 +21,13 @@ function ReportPet() {
     weight: '',
     description: '',
     
-    // Step 3: Photos
+    // Step 3: Contact Information
+    ownerName: '',
+    phone: '',
+    email: '',
+    contactNotes: '',
+    
+    // Step 4: Photos
     photos: []
   });
 
@@ -239,7 +245,61 @@ function ReportPet() {
       case 3:
         return (
           <div className="form-step">
-            <h2>Step 3: Upload Photos</h2>
+            <h2>Step 3: Contact Information</h2>
+            <div className="form-group">
+              <label htmlFor="ownerName">Your Name</label>
+              <input
+                type="text"
+                id="ownerName"
+                name="ownerName"
+                value={formData.ownerName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="contactNotes">Additional Contact Notes</label>
+              <textarea
+                id="contactNotes"
+                name="contactNotes"
+                value={formData.contactNotes}
+                onChange={handleChange}
+                placeholder="Best time to contact, preferred contact method, etc."
+                rows="4"
+              />
+            </div>
+          </div>
+        );
+
+      case 4:
+        return (
+          <div className="form-step">
+            <h2>Step 4: Upload Photos</h2>
             <div className="form-group">
               <label htmlFor="photos">Pet Photos</label>
               <input
@@ -277,7 +337,7 @@ function ReportPet() {
         <h1>Report {formData.status === 'lost' ? 'Lost' : 'Found'} Pet</h1>
         
         <div className="progress-bar">
-          <div className="progress-step" style={{ width: `${(step / 3) * 100}%` }}></div>
+          <div className="progress-step" style={{ width: `${(step / 4) * 100}%` }}></div>
         </div>
 
         <form onSubmit={handleSubmit} className="report-form">
@@ -289,7 +349,7 @@ function ReportPet() {
                 Previous
               </button>
             )}
-            {step < 3 ? (
+            {step < 4 ? (
               <button type="button" className="btn btn-primary" onClick={nextStep}>
                 Next
               </button>
