@@ -9,6 +9,7 @@ import '../styles/MapSearch.css';
 
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import { reportMarkers } from '../data/mapMarkers';
 
 L.Icon.Default.mergeOptions({
   iconUrl: markerIcon,
@@ -46,41 +47,6 @@ function MapSearch() {
   const [address, setAddress] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const mapRef = useRef(null);
-
-
-  // sample marker
-  const reportMarkers = [
-    {
-      id: 1,
-      lat: 37.8701,
-      lng: -122.2689,
-      label: 'Berkeley High School',
-      petId: 101,
-      petName: 'Fluffy',
-      petImageUrl: 'https://example.com/fluffy.jpg', // example image URL
-      petDescription: 'A friendly dog, found near the school.'
-    },
-    {
-      id: 2,
-      lat: 37.8675,
-      lng: -122.2670,
-      label: 'Dwight Way Sighting',
-      petId: 102,
-      petName: 'Whiskers',
-      petImageUrl: 'https://example.com/whiskers.jpg', // example image URL
-      petDescription: 'A lost cat spotted in the area.'
-    },
-    {
-      id: 3,
-      lat: 37.8655,
-      lng: -122.2715,
-      label: 'Near Ohlone Park',
-      petId: 103,
-      petName: 'Buddy',
-      petImageUrl: 'https://example.com/buddy.jpg', // example image URL
-      petDescription: 'A dog found wandering near the park.'
-    },
-  ];
 
 
   const handleSearch = async () => {
@@ -201,7 +167,7 @@ function MapSearch() {
           zoom={14} 
           style={{ height: '700px', width: '900px' }}
           whenCreated={(mapInstance) => { mapRef.current = mapInstance; }}
-    >
+        >
           <TileLayer
             url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
             attribution='&copy; OpenStreetMap contributors'
@@ -213,7 +179,7 @@ function MapSearch() {
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   {/*left */}
                   <img
-                    src={marker.petImageUrl} //image URL
+                    src={marker.petImageUrl}
                     alt={marker.petName}
                     style={{ width: '60px', height: '60px', marginRight: '10px', borderRadius: '50%' }}
                   />

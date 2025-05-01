@@ -135,13 +135,13 @@
   }
   
   .logo-image {
-    height: 60px; 
+    height: 30px; 
     width: auto;
   }
   
   /* For mobile responsiveness */
   @media (max-width: 768px) {
     .logo-image {
-      height: 50px; /* Slightly smaller on mobile */
+      height: 20px; /* Slightly smaller on mobile */
     }
   }

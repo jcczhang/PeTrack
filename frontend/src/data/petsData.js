@@ -1,3 +1,8 @@
+import borderImage from '../assets/images/pets/border.jpg';
+import calicoImage from '../assets/images/pets/calico.jpg';
+import goldenRetrieverImage from '../assets/images/pets/max.jpg';
+import ragdollImage from '../assets/images/pets/ragdoll.jpg';
+
 export const lostPets = [
   {
     id: 1,
@@ -6,7 +11,7 @@ export const lostPets = [
     breed: 'Golden Retriever',
     lastSeen: '2023-05-15',
     location: 'Berkeley, CA',
-    image: '/sample-pets/dog1.jpg',
+    image: goldenRetrieverImage,
     description: 'Friendly golden retriever with red collar',
     coordinates: { lat: 37.8719, lng: -122.2585 }
   },
@@ -14,10 +19,10 @@ export const lostPets = [
     id: 2,
     name: 'Luna',
     type: 'Cat',
-    breed: 'Siamese',
+    breed: 'Ragdoll',
     lastSeen: '2023-05-10',
     location: 'Oakland, CA',
-    image: '/sample-pets/cat1.jpg',
+    image: ragdollImage,
     description: 'Blue-eyed siamese with distinctive markings',
     coordinates: { lat: 37.8044, lng: -122.2711 }
   }
@@ -28,10 +33,10 @@ export const foundPets = [
     id: 3,
     name: 'Unknown',
     type: 'Dog',
-    breed: 'Labrador',
+    breed: 'Border Collie',
     foundDate: '2023-05-12',
     location: 'San Francisco, CA',
-    image: '/sample-pets/dog2.jpg',
+    image: borderImage,
     description: 'Friendly black lab found near Golden Gate Park',
     coordinates: { lat: 37.7749, lng: -122.4194 }
   },
@@ -39,10 +44,10 @@ export const foundPets = [
     id: 4,
     name: 'Unknown',
     type: 'Cat',
-    breed: 'Tabby',
+    breed: 'Calico',
     foundDate: '2023-05-14',
     location: 'Berkeley, CA',
-    image: '/sample-pets/cat2.jpg',
+    image: calicoImage,
     description: 'Orange tabby with white paws',
     coordinates: { lat: 37.8719, lng: -122.2585 }
   }
