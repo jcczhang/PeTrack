@@ -125,7 +125,7 @@ function MapSearch() {
   return (
     <div className="map-search">
       <div className="header">
-        <h1>Map search</h1>
+        <h1>Map Search</h1>
         <p>Utilize geolocation services to access shelters near you and high potential areas to search for your missing pet.</p>
       </div>
 
@@ -220,7 +220,7 @@ function MapSearch() {
 
         {searchedAddress && nearbyPlaces.length > 0 && (
   <div className="search-results" style={{ marginTop: '20px' }}>
-    <h2>According to your search area "{searchedAddress}"，we find out: </h2>
+    <h2>According to your search area "{searchedAddress}", we find out: </h2>
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
       {nearbyPlaces.map((place) => (
         <div

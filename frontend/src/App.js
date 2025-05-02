@@ -8,7 +8,9 @@ import ReportPet from './pages/ReportPet';
 import MapSearch from './pages/MapSearch';
 import PreviewPoster from './pages/PreviewPoster';
 import PetDetail from './pages/PetDetail';
+import Login from './pages/Login'; 
 import './App.css';
+
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/report-pet" element={<ReportPet />} />
           <Route path="/map-search" element={<MapSearch />} />
           <Route path="/preview-poster" element={<PreviewPoster />} />
+
+          <Route path="/login" element={<Login />} />
 
           { /* detail pet info page */}
           <Route path="/pet/:id" element={<PetDetail />} />

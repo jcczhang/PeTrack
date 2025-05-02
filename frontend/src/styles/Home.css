@@ -94,6 +94,7 @@
   }
   
 
+  /* red color button */
   .btn {
     display: inline-block;
     padding: 12px 24px;
@@ -106,14 +107,19 @@
   }
 
 
-  .btn-tertiary {
-    background-color: #f45b4f; 
-    color: white;
+  .btn-tertiary,
+  .btn-secondary,
+  .btn-primary,
+  .btn-quaternary {
+    background-color: #f45b4f !important; 
+    color: white !important;
   }
   
-  .btn-tertiary:hover {
-    background-color: #e74c3c;
-    color: white;
-
+  .btn-tertiary:hover,
+  .btn-secondary:hover,
+  .btn-primary:hover,
+  .btn-quaternary:hover {
+    background-color: #e74c3c !important;
+    color: white !important;
   }
   

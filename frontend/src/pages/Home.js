@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 
+
+
 function Home() {
-  return (   
+  return (
     <div className="home">
       <div className="container">
         <section className="hero">
@@ -13,6 +15,7 @@ function Home() {
             <Link to="/report-pet" className="btn btn-primary">Report Missing Pet</Link>
             <Link to="/lost-and-found" className="btn btn-secondary">Search Found Pets</Link>
             <Link to="/generate-poster" className="btn btn-tertiary">Generate Lost Pet Poster</Link>
+            <Link to="/map-search" className="btn btn-quaternary">Search Nearby Places</Link>
           </div>
         </section>
         <section className="features">
