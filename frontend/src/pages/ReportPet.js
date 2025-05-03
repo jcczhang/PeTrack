@@ -6,13 +6,14 @@ import { addLostPet, addFoundPet } from '../data/petsData';
 function ReportPet() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [formData, setFormData] = useState({
     // Step 1: Status and Location
     status: 'lost', // 'lost' or 'found'
     location: '',
     date: '',
     
-    // Step 2: Pet Description
+    // Step 2: Pet Description and Photos
     petName: '',
     petType: '',
     breed: '',
@@ -20,75 +21,153 @@ function ReportPet() {
     color: '',
     weight: '',
     description: '',
+    photos: [],
     
     // Step 3: Contact Information
     ownerName: '',
-    phone: '',
-    email: '',
-    contactNotes: '',
-    
-    // Step 4: Photos
-    photos: []
+    contactInfo: '',
+    contactNotes: ''
   });
+
+  const [aiAnalysis, setAiAnalysis] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'photos') {
-      setFormData(prev => ({ ...prev, photos: Array.from(files) }));
+      // Keep existing photos and add new ones
+      setFormData(prev => ({ 
+        ...prev, 
+        photos: [...prev.photos, ...Array.from(files)] 
+      }));
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Create a new pet object
-    const newPet = {
-      name: formData.petName,
-      type: formData.petType,
-      breed: formData.breed,
-      location: formData.location,
-      description: formData.description,
-      image: formData.photos[0] ? URL.createObjectURL(formData.photos[0]) : '/sample-pets/default.jpg',
-      ...(formData.status === 'lost' 
-        ? { lastSeen: formData.date }
-        : { foundDate: formData.date }
-      )
-    };
+  const removePhoto = (indexToRemove) => {
+    setFormData(prev => ({
+      ...prev,
+      photos: prev.photos.filter((_, index) => index !== indexToRemove)
+    }));
+  };
 
-    // Add the pet to the appropriate list
-    if (formData.status === 'lost') {
-      addLostPet(newPet);
-      // For lost pets, navigate to poster templates with the form data
-      navigate('/poster-templates', { 
-        state: { 
-          formData: {
-            petName: formData.petName,
-            petType: formData.petType,
-            breed: formData.breed,
-            sex: formData.sex,
-            color: formData.color,
-            weight: formData.weight,
-            lastSeenLocation: formData.location,
-            additionalDetails: formData.description,
-            petImage: formData.photos[0]
-          }
-        }
-      });
-    } else {
-      addFoundPet(newPet);
-      // For found pets, just go to lost and found page
-      navigate('/lost-and-found');
+  const handleAiAnalysis = async () => {
+    if (formData.photos.length === 0) return;
+    
+    // Show loading state
+    setAiAnalysis('analyzing');
+    
+    try {
+      // TODO: Implement actual AI analysis
+      // This is a placeholder for the actual API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Simulated AI analysis results
+      const analysisResults = {
+        breed: 'Golden Retriever',
+        age: '2-3 years',
+        color: 'Golden',
+        additionalInfo: 'Friendly golden retriever with red collar'
+      };
+      
+      // Auto-fill form fields based on AI analysis
+      setFormData(prev => ({
+        ...prev,
+        petType: 'Dog',
+        breed: analysisResults.breed,
+        color: analysisResults.color,
+        description: `${analysisResults.additionalInfo}. Estimated age: ${analysisResults.age}`
+      }));
+      
+      setAiAnalysis('complete');
+    } catch (error) {
+      setAiAnalysis('error');
+      console.error('AI analysis failed:', error);
     }
   };
 
-  const nextStep = () => {
-    setStep(prev => prev + 1);
+  const nextStep = (e) => {
+    e.preventDefault();
+    const form = e.target.closest('form');
+    const inputs = form.querySelectorAll('input[required]');
+    let isValid = true;
+
+    inputs.forEach(input => {
+      if (!input.value.trim()) {
+        input.reportValidity();
+        isValid = false;
+      }
+    });
+
+    if (isValid) {
+      setStep(prev => prev + 1);
+    }
   };
 
   const prevStep = () => {
     setStep(prev => prev - 1);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const inputs = form.querySelectorAll('input[required]');
+    let isValid = true;
+
+    inputs.forEach(input => {
+      if (!input.value.trim()) {
+        input.reportValidity();
+        isValid = false;
+      }
+    });
+
+    if (isValid) {
+      // Create a new pet object
+      const newPet = {
+        name: formData.petName,
+        type: formData.petType,
+        breed: formData.breed,
+        location: formData.location,
+        description: formData.description,
+        image: formData.photos[0] ? URL.createObjectURL(formData.photos[0]) : '/sample-pets/default.jpg',
+        ...(formData.status === 'lost' 
+          ? { lastSeen: formData.date }
+          : { foundDate: formData.date }
+        )
+      };
+
+      // Add the pet to the appropriate list
+      if (formData.status === 'lost') {
+        addLostPet(newPet);
+      } else {
+        addFoundPet(newPet);
+      }
+      
+      setShowSuccess(true);
+    }
+  };
+
+  const handleGeneratePoster = () => {
+    navigate('/poster-templates', { 
+      state: { 
+        formData: {
+          petName: formData.petName,
+          petType: formData.petType,
+          breed: formData.breed,
+          sex: formData.sex,
+          color: formData.color,
+          weight: formData.weight,
+          lastSeenLocation: formData.location,
+          additionalDetails: formData.description,
+          petImage: formData.photos[0],
+          contactInfo: formData.contactInfo
+        }
+      }
+    });
+  };
+
+  const handleReturnToList = () => {
+    navigate('/lost-and-found');
   };
 
   const renderStep = () => {
@@ -145,6 +224,7 @@ function ReportPet() {
                 value={formData.date}
                 onChange={handleChange}
                 required
+                max={new Date().toISOString().split('T')[0]}
               />
             </div>
           </div>
@@ -154,6 +234,55 @@ function ReportPet() {
         return (
           <div className="form-step">
             <h2>Step 2: Pet Description</h2>
+            <div className="form-group">
+              <label htmlFor="photos">Pet Photos</label>
+              <input
+                type="file"
+                id="photos"
+                name="photos"
+                onChange={handleChange}
+                multiple
+                accept="image/*"
+                required
+              />
+              <p className="help-text">Upload multiple photos from different angles</p>
+            </div>
+
+            {formData.photos.length > 0 && (
+              <>
+                <div className="photo-preview">
+                  {formData.photos.map((photo, index) => (
+                    <div key={index} className="preview-item">
+                      <img src={URL.createObjectURL(photo)} alt={`Preview ${index + 1}`} />
+                      <button 
+                        className="remove-photo" 
+                        onClick={() => removePhoto(index)}
+                        aria-label="Remove photo"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="ai-analysis-section">
+                  <button 
+                    className="btn btn-ai" 
+                    onClick={handleAiAnalysis}
+                    disabled={aiAnalysis === 'analyzing'}
+                  >
+                    {aiAnalysis === 'analyzing' ? 'Analyzing...' : 'Analyze Photos with AI'}
+                  </button>
+
+                  {aiAnalysis === 'error' && (
+                    <div className="ai-error">
+                      Failed to analyze photos. Please try again.
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+
             <div className="form-group">
               <label htmlFor="petName">Pet's Name</label>
               <input
@@ -259,26 +388,15 @@ function ReportPet() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="phone">Phone Number</label>
+              <label htmlFor="contactInfo">Contact Information</label>
               <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
+                type="text"
+                id="contactInfo"
+                name="contactInfo"
+                value={formData.contactInfo}
                 onChange={handleChange}
                 required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
+                placeholder="Phone number or email"
               />
             </div>
 
@@ -296,40 +414,38 @@ function ReportPet() {
           </div>
         );
 
-      case 4:
-        return (
-          <div className="form-step">
-            <h2>Step 4: Upload Photos</h2>
-            <div className="form-group">
-              <label htmlFor="photos">Pet Photos</label>
-              <input
-                type="file"
-                id="photos"
-                name="photos"
-                onChange={handleChange}
-                multiple
-                accept="image/*"
-                required
-              />
-              <p className="help-text">Upload multiple photos from different angles</p>
-            </div>
-
-            {formData.photos.length > 0 && (
-              <div className="photo-preview">
-                {formData.photos.map((photo, index) => (
-                  <div key={index} className="preview-item">
-                    <img src={URL.createObjectURL(photo)} alt={`Preview ${index + 1}`} />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        );
-
       default:
         return null;
     }
   };
+
+  if (showSuccess) {
+    return (
+      <div className="report-pet">
+        <div className="container">
+          <div className="success-message">
+            <h2>Report Successfully Listed!</h2>
+            <p>Your {formData.status === 'lost' ? 'lost' : 'found'} pet report has been successfully listed.</p>
+            
+            <div className="success-actions">
+              <button 
+                className="btn btn-primary" 
+                onClick={handleGeneratePoster}
+              >
+                Generate Poster
+              </button>
+              <button 
+                className="btn btn-secondary" 
+                onClick={handleReturnToList}
+              >
+                Return to List
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="report-pet">
@@ -337,10 +453,10 @@ function ReportPet() {
         <h1>Report {formData.status === 'lost' ? 'Lost' : 'Found'} Pet</h1>
         
         <div className="progress-bar">
-          <div className="progress-step" style={{ width: `${(step / 4) * 100}%` }}></div>
+          <div className="progress-step" style={{ width: `${(step / 3) * 100}%` }}></div>
         </div>
 
-        <form onSubmit={handleSubmit} className="report-form">
+        <form onSubmit={handleSubmit} className="report-form" noValidate>
           {renderStep()}
 
           <div className="form-actions">
@@ -349,7 +465,7 @@ function ReportPet() {
                 Previous
               </button>
             )}
-            {step < 4 ? (
+            {step < 3 ? (
               <button type="button" className="btn btn-primary" onClick={nextStep}>
                 Next
               </button>

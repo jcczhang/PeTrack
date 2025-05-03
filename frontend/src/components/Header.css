@@ -70,25 +70,10 @@
   }
   
   .nav-menu a:hover {
-    color: #f45b4f;
+    /* color: #f45b4f; */
+    filter: brightness(0) saturate(100%) invert(28%) sepia(85%) saturate(3560%) hue-rotate(-5deg) brightness(95%) contrast(94%);
   }
 
-  .coming-soon {
-    position: relative;
-    opacity: 0.7;
-  }
-
-  .coming-soon-badge {
-    position: absolute;
-    top: -8px;
-    right: -40px;
-    background-color: #f45b4f;
-    color: white;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-weight: bold;
-  }
   
   /* Responsive styles */
   @media (max-width: 768px) {

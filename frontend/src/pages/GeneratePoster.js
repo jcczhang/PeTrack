@@ -212,8 +212,8 @@ function GeneratePoster() {
           </div>
 
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary">Generate Poster</button>
             <button type="button" className="btn btn-secondary" onClick={() => navigate('/')}>Cancel</button>
+            <button type="submit" className="btn btn-primary">Generate Poster</button>
           </div>
         </form>
       </div>

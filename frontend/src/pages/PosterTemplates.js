@@ -58,8 +58,8 @@ function PosterTemplates() {
       <h1>Choose a Poster Template</h1>
       <div className="templates-grid">
         {templates.map(template => (
-          <div 
-            key={template.id} 
+          <div
+            key={template.id}
             className="template-card"
             onClick={() => handleTemplateSelect(template.id)}
           >

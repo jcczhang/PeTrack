@@ -1,12 +1,14 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ClassicTemplate from './ClassicTemplate';
+import ModernTemplate from './ModernTemplate';
 import '../styles/PreviewPoster.css';
 
 function PreviewPoster() {
   const location = useLocation();
   const navigate = useNavigate();
   const { formData, templateId } = location.state || {};
-  
+
   const handlePrint = () => {
     window.print();
   };
@@ -26,59 +28,21 @@ function PreviewPoster() {
     );
   }
 
+  const renderTemplate = () => {
+    switch (templateId) {
+      case 1:
+        return <ClassicTemplate formData={formData} />;
+      case 2:
+        return <ModernTemplate formData={formData} />;
+      default:
+        return <ClassicTemplate formData={formData} />;
+    }
+  };
+
   return (
     <div className="preview-container">
-      <div className="poster-preview">
-        <div className="poster-header">
-          <h1>LOST PET</h1>
-          <h2>{formData.petName}</h2>
-        </div>
-        
-        <div className="poster-content">
-          <div className="poster-image">
-            {formData.petImage ? (
-              <img src={URL.createObjectURL(formData.petImage)} alt={formData.petName} />
-            ) : (
-              <div className="no-image">No Image Available</div>
-            )}
-          </div>
-          
-          <div className="poster-details">
-            <div className="detail-row">
-              <span className="label">Type:</span>
-              <span className="value">{formData.petType}</span>
-            </div>
-            <div className="detail-row">
-              <span className="label">Breed:</span>
-              <span className="value">{formData.breed}</span>
-            </div>
-            <div className="detail-row">
-              <span className="label">Color:</span>
-              <span className="value">{formData.color}</span>
-            </div>
-            <div className="detail-row">
-              <span className="label">Sex:</span>
-              <span className="value">{formData.sex}</span>
-            </div>
-            <div className="detail-row">
-              <span className="label">Weight:</span>
-              <span className="value">{formData.weight} lbs</span>
-            </div>
-            <div className="detail-row">
-              <span className="label">Last Seen:</span>
-              <span className="value">{formData.lastSeenLocation}</span>
-            </div>
-            <div className="detail-row description">
-              <span className="label">Description:</span>
-              <span className="value">{formData.additionalDetails}</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="poster-footer">
-          <p>If found, please contact:</p>
-          <p className="contact-info">{formData.contactInfo || '[Your Contact Information]'}</p>
-        </div>
+      <div className="preview-content">
+        {renderTemplate()}
       </div>
 
       <div className="preview-controls">
@@ -93,4 +57,4 @@ function PreviewPoster() {
   );
 }
 
-export default PreviewPoster; 
+export default PreviewPoster;

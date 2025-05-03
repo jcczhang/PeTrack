@@ -146,9 +146,3 @@ button:active, .button:active {
   background-color: #b52722;
   transform: translateY(1px);
 }
-
-.header {
-  background-color: transparent; /* 让背景变透明，继承外面灰色 */
-  box-shadow: none;              /* 取消阴影 */
-  border: none;                  /* 取消边框 */
-}
