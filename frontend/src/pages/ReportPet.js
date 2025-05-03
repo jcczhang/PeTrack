@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaPaw, FaSearch } from 'react-icons/fa';
 import '../styles/ReportPet.css';
 import { addLostPet, addFoundPet } from '../data/petsData';
 
@@ -178,26 +179,36 @@ function ReportPet() {
             <h2>Step 1: Status and Location</h2>
             <div className="form-group">
               <label>Status</label>
-              <div className="radio-group">
-                <label>
+              <div className="status-options">
+                <label className={`status-option ${formData.status === 'lost' ? 'selected' : ''}`}>
                   <input
                     type="radio"
                     name="status"
                     value="lost"
                     checked={formData.status === 'lost'}
                     onChange={handleChange}
+                    className="visually-hidden"
                   />
-                  Lost Pet
+                  <div className="status-content">
+                    <FaPaw className="status-icon" />
+                    <span>Lost Pet</span>
+                    <p>Report a pet that has gone missing</p>
+                  </div>
                 </label>
-                <label>
+                <label className={`status-option ${formData.status === 'found' ? 'selected' : ''}`}>
                   <input
                     type="radio"
                     name="status"
                     value="found"
                     checked={formData.status === 'found'}
                     onChange={handleChange}
+                    className="visually-hidden"
                   />
-                  Found Pet
+                  <div className="status-content">
+                    <FaSearch className="status-icon" />
+                    <span>Found Pet</span>
+                    <p>Report a pet you have found</p>
+                  </div>
                 </label>
               </div>
             </div>

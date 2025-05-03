@@ -63,7 +63,26 @@ function GeneratePoster() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/poster-templates', { state: { formData } });
+    console.log('Form Data being submitted:', formData); // Debug log
+    
+    const submissionData = {
+      petName: formData.petName,
+      petType: formData.petType,
+      breed: formData.breed,
+      sex: formData.sex,
+      color: formData.color,
+      weight: formData.weight,
+      lastSeenLocation: formData.lastSeenLocation,
+      additionalDetails: formData.additionalDetails,
+      petImage: formData.petImage,
+      contactInfo: formData.contactInfo
+    };
+    
+    console.log('Processed submission data:', submissionData); // Debug log
+    
+    navigate('/poster-templates', { 
+      state: { formData: submissionData }
+    });
   };
 
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/PosterTemplates.css';
 
@@ -6,6 +6,11 @@ function PosterTemplates() {
   const location = useLocation();
   const navigate = useNavigate();
   const formData = location.state?.formData;
+
+  useEffect(() => {
+    console.log('Location state:', location.state);
+    console.log('Form data received:', formData);
+  }, [location.state, formData]);
 
   const templates = [
     {
@@ -43,12 +48,16 @@ function PosterTemplates() {
   };
 
   if (!formData) {
+    console.error('No form data found in location state');
     return (
       <div className="error-message">
         <h2>No form data found</h2>
-        <button onClick={() => navigate('/report-pet')} className="btn btn-primary">
-          Create New Report
-        </button>
+        <p>Please go back and fill out the form first.</p>
+        <div className="navigation-buttons">
+          <button onClick={() => navigate('/generate-poster')} className="btn btn-primary">
+            Back to Form
+          </button>
+        </div>
       </div>
     );
   }
@@ -56,6 +65,8 @@ function PosterTemplates() {
   return (
     <div className="templates-container">
       <h1>Choose a Poster Template</h1>
+      <p className="subtitle">Select a template to preview your poster</p>
+      
       <div className="templates-grid">
         {templates.map(template => (
           <div
@@ -77,9 +88,9 @@ function PosterTemplates() {
       <div className="navigation-buttons">
         <button 
           className="btn btn-secondary"
-          onClick={() => navigate('/lost-and-found')}
+          onClick={() => navigate('/generate-poster')}
         >
-          Back to Lost & Found
+          Back to Form
         </button>
       </div>
     </div>

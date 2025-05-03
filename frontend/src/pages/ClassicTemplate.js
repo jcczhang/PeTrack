@@ -70,11 +70,6 @@ function ClassicTemplate() {
           <p className="contact-info">{formData.contactInfo || '[Your Contact Information]'}</p>
         </div>
       </div>
-
-      {/* <div className="poster-footer">
-        <p>If found, please contact:</p>
-        <p className="contact-info">{formData.contactInfo || '[Your Contact Information]'}</p>
-      </div> */}
     </div>
   );
 }

@@ -21,7 +21,7 @@ function PreviewPoster() {
     return (
       <div className="error-message">
         <h2>No poster data found</h2>
-        <button onClick={() => navigate('/report-pet')} className="btn btn-primary">
+        <button onClick={() => navigate('/generate-poster')} className="btn btn-primary">
           Create New Poster
         </button>
       </div>
