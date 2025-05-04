@@ -58,28 +58,58 @@ function ReportPet() {
     // Show loading state
     setAiAnalysis('analyzing');
     
+    // try {
+    //   // TODO: Implement actual AI analysis
+    //   // This is a placeholder for the actual API call
+    //   await new Promise(resolve => setTimeout(resolve, 2000));
+      
+    //   // Simulated AI analysis results
+    //   const analysisResults = {
+    //     breed: 'Golden Retriever',
+    //     age: '2-3 years',
+    //     color: 'Golden',
+    //     additionalInfo: 'Friendly golden retriever with red collar'
+    //   };
+      
+    //   // Auto-fill form fields based on AI analysis
+    //   setFormData(prev => ({
+    //     ...prev,
+    //     petType: 'Dog',
+    //     breed: analysisResults.breed,
+    //     color: analysisResults.color,
+    //     description: `${analysisResults.additionalInfo}. Estimated age: ${analysisResults.age}`
+    //   }));
+      
+    //   setAiAnalysis('complete');
+    // } catch (error) {
+    //   setAiAnalysis('error');
+    //   console.error('AI analysis failed:', error);
+    // }
     try {
-      // TODO: Implement actual AI analysis
-      // This is a placeholder for the actual API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Simulated AI analysis results
-      const analysisResults = {
-        breed: 'Golden Retriever',
-        age: '2-3 years',
-        color: 'Golden',
-        additionalInfo: 'Friendly golden retriever with red collar'
-      };
-      
-      // Auto-fill form fields based on AI analysis
+      const formDataToSend = new FormData();
+      formDataToSend.append('image', formData.photos[0]); //send picture
+  
+      const response = await fetch('http://127.0.0.1:5000/api/analyze-pet', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+  
+      if (!response.ok) {
+        throw new Error('AI analysis API failed');
+      }
+  
+      const data = await response.json();
+  
       setFormData(prev => ({
         ...prev,
-        petType: 'Dog',
-        breed: analysisResults.breed,
-        color: analysisResults.color,
-        description: `${analysisResults.additionalInfo}. Estimated age: ${analysisResults.age}`
+        petType: data.petType || '',
+        breed: data.breed || '',
+        color: data.color || '',
+        description: `${data.petType} of color ${data.color}. Breed: ${data.breed}.`, 
+        sex: data.sex || '',
+        weight: data.weight || ''
       }));
-      
+  
       setAiAnalysis('complete');
     } catch (error) {
       setAiAnalysis('error');

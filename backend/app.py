@@ -4,7 +4,13 @@ from collections import Counter
 import torch
 from PIL import Image
 import io
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+
+
+
+app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 import os
 import json
@@ -14,12 +20,8 @@ from numpy.linalg import norm
 import numpy as np
 
 
-
-app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
-
 FEATURES_FILE = 'data/features.json'
-os.makedirs('data', exist_ok=True)  # 确保data目录存在
+os.makedirs('data', exist_ok=True)
 
 
 
@@ -30,7 +32,7 @@ model.eval()
 
 
 feature_extractor = models.resnet18(pretrained=True)
-feature_extractor = torch.nn.Sequential(*list(feature_extractor.children())[:-1])  # 去掉fc
+feature_extractor = torch.nn.Sequential(*list(feature_extractor.children())[:-1])  
 feature_extractor = feature_extractor.to(device)
 feature_extractor.eval()
 
@@ -45,8 +47,10 @@ preprocess = transforms.Compose([
 
 with open('imagenet_classes.txt') as f:
     labels = [line.strip() for line in f.readlines()]
+
 # 1 recognize auto fill form
 @app.route('/api/analyze-pet', methods=['POST'])
+@cross_origin()
 def analyze_pet():
     if 'image' not in request.files:
         return jsonify({'error': 'No image uploaded'}), 400
@@ -105,23 +109,20 @@ def analyze_pet():
     return jsonify(response)
 
 def extract_dominant_color(image, k=4, resize=150):
-    # Resize image
     image = image.copy()
     image.thumbnail((resize, resize))
-
-    # Convert to RGB
     image = image.convert('RGB')
 
     pixels = list(image.getdata())
     pixel_count = Counter(pixels)
     most_common = pixel_count.most_common(k)
 
-    #return color
     dominant_rgb = most_common[0][0]
     return dominant_rgb
 
 #2 save
 @app.route('/api/save-feature', methods=['POST'])
+@cross_origin()
 def save_feature():
     if 'image' not in request.files:
         return jsonify({'error': 'No image uploaded'}), 400
@@ -161,10 +162,8 @@ def save_feature():
         'feature': features
     }
 
-    # 添加新的宠物特征
     database.append(pet_data)
 
-    # 保存回文件
     with open(FEATURES_FILE, 'w') as f:
         json.dump(database, f, indent=2)
 
@@ -174,52 +173,43 @@ def save_feature():
 
 # 3 search
 
-# 计算两个向量之间的余弦相似度
+# cosine similarity
 def cosine_similarity(a, b):
     a = np.array(a)
     b = np.array(b)
     return dot(a, b) / (norm(a) * norm(b))
 
 @app.route('/api/search-feature', methods=['POST'])
+@cross_origin()
 def search_feature():
     if 'image' not in request.files:
         return jsonify({'error': 'No image uploaded'}), 400
 
-    # 接收图片
     image_file = request.files['image']
     image = Image.open(io.BytesIO(image_file.read()))
     if image.mode != 'RGB':
         image = image.convert('RGB')
 
-    # 提取当前图片的特征
     input_tensor = preprocess(image).unsqueeze(0).to(device)
     with torch.no_grad():
         query_feature = feature_extractor(input_tensor)
         query_feature = query_feature.view(-1).cpu().numpy().tolist()
 
-
-
-
-    # 读取已有特征数据
     if not os.path.exists(FEATURES_FILE):
         return jsonify({'error': 'No database found'}), 500
 
     with open(FEATURES_FILE, 'r') as f:
         database = json.load(f)
 
-    # 遍历比对
     similarities = []
     for entry in database:
         score = cosine_similarity(query_feature, entry['feature'])
         similarities.append((score, entry))
 
-    # 按相似度降序排列
     similarities.sort(reverse=True, key=lambda x: x[0])
 
-    # 取Top 3（或者Top 1）
     top_matches = similarities[:3]
 
-    # 返回结果
     result = []
     for score, pet in top_matches:
         result.append({

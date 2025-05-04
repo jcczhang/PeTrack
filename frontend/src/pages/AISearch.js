@@ -55,35 +55,30 @@ function AISearch() {
           <div className="lost-and-found">
             <h1>Matches Found</h1>
             <div className="pets-grid">
-  {matches.length > 0 ? (
-    matches.map((match, index) => (
-      <div key={index} className="pet-card">
-        <div className="pet-image">
-          {/* 如果match里有image字段，就显示图片，否则用占位图 */}
-          <img src={match.image || '/assets/images/placeholder.jpg'} alt={match.name} />
-        </div>
-        <div className="pet-info">
-          <h3>{match.name}</h3>
-          <p>{match.type} - {match.breed}</p>
-          <p>Similarity: {(match.similarity * 100).toFixed(1)}%</p>
-          <Link to={`/lost-pets/${match.id}`} className="btn btn-primary" style={{ marginTop: '10px' }}>
-            View Details
-          </Link>
-        </div>
-      </div>
-    ))
-  ) : (
-    <p style={{ textAlign: 'center', color: '#666' }}>No matches found.</p>
-  )}
-</div>
+              {matches.length > 0 ? (
+                matches.map((match, index) => (
+                  <div key={index} className="pet-card">
+                    <div className="pet-image">
+                      {/* image need to update path */}
+                      <img src={match.image || '/assets/images/placeholder.jpg'} alt={match.name} />
+                    </div>
+                    <div className="pet-info">
+                      <h3>{match.name}</h3>
+                      <p>{match.type} - {match.breed}</p>
+                      <p>Similarity: {(match.similarity * 100).toFixed(1)}%</p>
+                      <Link to={`/lost-pets/${match.id}`} className="btn btn-primary" style={{ marginTop: '10px' }}>
+                        View Details
+                      </Link>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p style={{ textAlign: 'center', color: '#666' }}>No matches found.</p>
+              )}
+            </div>
           </div>
-
-
-
-
-
         )}
-    </div>
+      </div>
     </div >
   );
 }
