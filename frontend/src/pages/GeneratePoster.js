@@ -27,39 +27,79 @@ function GeneratePoster() {
     }
   };
 
+  // const handleAIAnalysis = async () => {
+  //   if (!formData.petImage) {
+  //     alert('Please upload a photo first');
+  //     return;
+  //   }
+
+  //   setIsAnalyzing(true);
+  //   try {
+  //     // Here you would typically call your AI service
+  //     // For now, we'll simulate the AI analysis with a timeout
+  //     await new Promise(resolve => setTimeout(resolve, 2000));
+      
+  //     // Simulated AI results
+  //     const aiResults = {
+  //       petType: 'Dog',
+  //       breed: 'Golden Retriever',
+  //       color: 'Golden',
+  //       sex: 'male',
+  //       weight: '65'
+  //     };
+
+  //     setFormData(prev => ({
+  //       ...prev,
+  //       ...aiResults
+  //     }));
+
+  //     alert('AI analysis complete! Form has been filled with detected information.');
+  //   } catch (error) {
+  //     alert('Error analyzing image. Please try again or fill in the form manually.');
+  //   } finally {
+  //     setIsAnalyzing(false);
+  //   }
+  // };
   const handleAIAnalysis = async () => {
     if (!formData.petImage) {
       alert('Please upload a photo first');
       return;
     }
-
+  
     setIsAnalyzing(true);
+  
     try {
-      // Here you would typically call your AI service
-      // For now, we'll simulate the AI analysis with a timeout
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Simulated AI results
-      const aiResults = {
-        petType: 'Dog',
-        breed: 'Golden Retriever',
-        color: 'Golden',
-        sex: 'male',
-        weight: '65'
-      };
-
+      const data = new FormData();
+      data.append('image', formData.petImage);
+  
+      const response = await fetch('http://127.0.0.1:5000/api/analyze-pet', {
+        method: 'POST',
+        body: data,
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to analyze image');
+      }
+  
+      const aiResults = await response.json();
+  
+      // update
       setFormData(prev => ({
         ...prev,
-        ...aiResults
+        petType: aiResults.petType || prev.petType,
+        breed: aiResults.breed || prev.breed,
+        color: aiResults.color || prev.color
       }));
-
-      alert('AI analysis complete! Form has been filled with detected information.');
+  
+      alert('AI analysis complete! Form updated.');
     } catch (error) {
-      alert('Error analyzing image. Please try again or fill in the form manually.');
+      console.error('Error during AI analysis:', error);
+      alert('Failed to analyze image. Please try again.');
     } finally {
       setIsAnalyzing(false);
     }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
