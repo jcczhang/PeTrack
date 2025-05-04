@@ -120,7 +120,7 @@
 }
 
 .contact-section {
-  margin-top: auto;
+  margin-top: 1rem;
 }
 
 .contact-card {
@@ -159,6 +159,8 @@
 @media print {
   .modern-container {
     padding: 0;
+    max-width: none; /* no width */
+    width: 100%;
   }
 
   .preview-controls {
@@ -166,6 +168,10 @@
   }
 
   .modern-poster {
+    box-shadow: none;
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
     box-shadow: none;
     border-radius: 0;
   }
@@ -200,3 +206,61 @@
     grid-template-columns: 1fr;
   }
 } 
+
+@media print {
+  .modern-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+  }
+
+  .header-content {
+    flex: 2;
+    text-align: left;
+  }
+
+  .header-content h1, 
+  .header-content h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-image {
+    flex: 1;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .header-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 col */
+    gap: 1rem 2rem;
+  }
+  
+  .description-section {
+    margin-bottom: 2rem;
+  }
+  .contact-section {
+    margin-top: 4rem; /* last green move up */
+  }
+  
+}
+
+@page {
+  size: A4 portrait; 
+  margin: 0;
+}
