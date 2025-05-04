@@ -13,7 +13,11 @@ export const lostPets = [
     location: 'Berkeley, CA',
     image: goldenRetrieverImage,
     description: 'Friendly golden retriever with red collar',
-    coordinates: { lat: 37.8719, lng: -122.2585 }
+    coordinates: { lat: 37.8719, lng: -122.2585 },
+    ownerName: 'Alice Johnson',
+    ownerPhone: '(555) 234-5678',
+    ownerEmail: 'alice.johnson@example.com',
+    notes: 'Available all day'
   },
   {
     id: 2,
@@ -24,7 +28,11 @@ export const lostPets = [
     location: 'Oakland, CA',
     image: ragdollImage,
     description: 'Blue-eyed siamese with distinctive markings',
-    coordinates: { lat: 37.8044, lng: -122.2711 }
+    coordinates: { lat: 37.8044, lng: -122.2711 },
+    ownerName: 'Bob Smith',
+    ownerPhone: '(555) 987-6543',
+    ownerEmail: 'bob.smith@example.com',
+    notes: 'Best time to call: evenings'
   }
 ];
 

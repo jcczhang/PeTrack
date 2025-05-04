@@ -10,6 +10,7 @@ import GeneratePoster from './pages/GeneratePoster';
 import PosterTemplates from './pages/PosterTemplates';
 import PreviewPoster from './pages/PreviewPoster';
 import ScrollToTop from './components/ScrollToTop';
+import LostPetDetail from './pages/LostPetDetail';
 import './App.css';
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
           <Route path="/ai-search" element={<AISearch />} />
           <Route path="/generate-poster" element={<GeneratePoster />} />
           <Route path="/poster-templates" element={<PosterTemplates />} />
-          <Route path="/preview-poster" element={<PreviewPoster />} />
+          <Route path="/preview-poster" element={<PreviewPoster />} />    
+          <Route path="/lost-pets/:id" element={<LostPetDetail />} />
         </Routes>
       </main>
     </div>

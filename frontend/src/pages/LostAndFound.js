@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import '../styles/LostAndFound.css';
 import { lostPets, foundPets } from '../data/petsData';
 
@@ -28,7 +30,7 @@ function LostAndFound() {
     <div className="lost-and-found">
       <div className="container">
         <h1>Lost and Found Pets</h1>
-        
+
         <div className="search-section">
           <input
             type="text"
@@ -67,12 +69,17 @@ function LostAndFound() {
                 <p><strong>Location:</strong> {pet.location}</p>
                 <p><strong>{activeTab === 'lost' ? 'Last Seen:' : 'Found Date:'}</strong> {activeTab === 'lost' ? pet.lastSeen : pet.foundDate}</p>
                 <p className="description">{pet.description}</p>
-                <button 
-                  className="btn btn-primary"
+                <button
+                  className="btn btn-secondary"
                   onClick={() => handleContactClick(pet)}
                 >
-                  Contact Owner
+                  Contact
                 </button>
+
+                {/* View Detail button */}
+                <Link to={`/lost-pets/${pet.id}`}>
+                  <button className="btn btn-secondary">View Details</button>
+                </Link>
               </div>
             </div>
           ))}
@@ -86,10 +93,11 @@ function LostAndFound() {
             <h2>Contact Information</h2>
             <div className="contact-info">
               <p><strong>Pet Name:</strong> {selectedPet.name}</p>
-              <p><strong>Owner Name:</strong> John Doe</p>
-              <p><strong>Phone:</strong> (555) 123-4567</p>
-              <p><strong>Email:</strong> john.doe@example.com</p>
-              <p><strong>Additional Notes:</strong> Please contact between 9 AM - 5 PM</p>
+              <p><strong>Contact Name:</strong> {selectedPet.ownerName || 'Unknown'}</p>
+              <p><strong>Phone:</strong> {selectedPet.ownerPhone || 'N/A'}</p>
+              <p><strong>Email:</strong> {selectedPet.ownerEmail || 'N/A'}</p>
+              <p><strong>Additional Notes:</strong> {selectedPet.notes || 'No additional notes'}</p>
+
             </div>
           </div>
         </div>
