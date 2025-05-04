@@ -139,7 +139,7 @@ function ReportPet() {
     setStep(prev => prev - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const form = e.target;
     const inputs = form.querySelectorAll('input[required]');
@@ -161,6 +161,11 @@ function ReportPet() {
         location: formData.location,
         description: formData.description,
         image: formData.photos[0] ? URL.createObjectURL(formData.photos[0]) : '/sample-pets/default.jpg',
+        
+        ownerName: formData.ownerName,
+        contactInfo: formData.contactInfo,
+        contactNotes: formData.contactNotes,
+
         ...(formData.status === 'lost' 
           ? { lastSeen: formData.date }
           : { foundDate: formData.date }
@@ -172,6 +177,26 @@ function ReportPet() {
         addLostPet(newPet);
       } else {
         addFoundPet(newPet);
+      }
+
+      // send data to backend
+      if (formData.photos.length > 0) {
+        try {
+          const featureFormData = new FormData();
+          featureFormData.append('image', formData.photos[0]); 
+          featureFormData.append('name', formData.petName || 'Unknown');
+          featureFormData.append('type', formData.petType || 'Unknown');
+          featureFormData.append('breed', formData.breed || 'Unknown');
+  
+          await fetch('http://127.0.0.1:5000/api/save-feature', {
+            method: 'POST',
+            body: featureFormData,
+          });
+  
+          console.log('Feature saved to server.');
+        } catch (err) {
+          console.error('Failed to save feature:', err);
+        }
       }
       
       setShowSuccess(true);

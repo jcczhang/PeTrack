@@ -94,9 +94,12 @@ function LostAndFound() {
             <div className="contact-info">
               <p><strong>Pet Name:</strong> {selectedPet.name}</p>
               <p><strong>Contact Name:</strong> {selectedPet.ownerName || 'Unknown'}</p>
-              <p><strong>Phone:</strong> {selectedPet.ownerPhone || 'N/A'}</p>
+              <p><strong>Contact Info:</strong> {selectedPet.contactInfo || 'N/A'}</p>
+              <p><strong>Additional Notes:</strong> {selectedPet.contactNotes || 'No additional notes'}</p>
+
+              {/* <p><strong>Phone:</strong> {selectedPet.ownerPhone || 'N/A'}</p>
               <p><strong>Email:</strong> {selectedPet.ownerEmail || 'N/A'}</p>
-              <p><strong>Additional Notes:</strong> {selectedPet.notes || 'No additional notes'}</p>
+              <p><strong>Additional Notes:</strong> {selectedPet.notes || 'No additional notes'}</p> */}
 
             </div>
           </div>

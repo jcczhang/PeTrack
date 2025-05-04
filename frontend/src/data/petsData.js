@@ -15,9 +15,8 @@ export const lostPets = [
     description: 'Friendly golden retriever with red collar',
     coordinates: { lat: 37.8719, lng: -122.2585 },
     ownerName: 'Alice Johnson',
-    ownerPhone: '(555) 234-5678',
-    ownerEmail: 'alice.johnson@example.com',
-    notes: 'Available all day'
+    contactInfo: 'alice.johnson@example.com',
+    contactNotes: 'Available all day'
   },
   {
     id: 2,
@@ -29,10 +28,10 @@ export const lostPets = [
     image: ragdollImage,
     description: 'Blue-eyed siamese with distinctive markings',
     coordinates: { lat: 37.8044, lng: -122.2711 },
+
     ownerName: 'Bob Smith',
-    ownerPhone: '(555) 987-6543',
-    ownerEmail: 'bob.smith@example.com',
-    notes: 'Best time to call: evenings'
+    contactInfo: 'bob.smith@example.com',
+    contactNotes: 'Best time to call: evenings'
   }
 ];
 
@@ -46,7 +45,11 @@ export const foundPets = [
     location: 'San Francisco, CA',
     image: borderImage,
     description: 'Friendly black lab found near Golden Gate Park',
-    coordinates: { lat: 37.7749, lng: -122.4194 }
+    coordinates: { lat: 37.7749, lng: -122.4194 },
+
+    ownerName: 'Angel Garcia',
+    contactInfo: '(555) 123-6543',
+    contactNotes: 'Anytime is fine'
   },
   {
     id: 4,
@@ -57,7 +60,11 @@ export const foundPets = [
     location: 'Berkeley, CA',
     image: calicoImage,
     description: 'Orange tabby with white paws',
-    coordinates: { lat: 37.8719, lng: -122.2585 }
+    coordinates: { lat: 37.8719, lng: -122.2585 },
+
+    ownerName: 'Sarah Lee',
+    contactInfo: '(555) 345-6789',
+    contactNotes: 'Available after 5 PM'
   }
 ];
 
