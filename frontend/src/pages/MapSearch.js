@@ -7,13 +7,34 @@ import { Link } from 'react-router-dom';
 
 import '../styles/MapSearch.css';
 
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { reportMarkers } from '../data/mapMarkers';
+import { FaDog, FaHome } from 'react-icons/fa';
+import { LuMapPinHouse } from "react-icons/lu";
 
-L.Icon.Default.mergeOptions({
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
+const createReactIcon = () =>
+  L.divIcon({
+    className: 'custom-div-icon',
+    html: renderToStaticMarkup(<LuMapPinHouse size={24} color="black" />),
+    iconSize: [30, 30],
+    iconAnchor: [15, 30], 
+    popupAnchor: [0, -30],
+  });
+
+const petIcon = L.divIcon({
+  className: 'custom-div-icon',
+  html: renderToStaticMarkup(<FaDog size={24} color="#2c3e50" />),
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30],
+});
+
+const shelterIcon = L.divIcon({
+  className: 'custom-div-icon',
+  html: renderToStaticMarkup(<FaHome size={24} color="#ff3366" />),
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30],
 });
 
 const LocationMarker = () => {
@@ -28,7 +49,7 @@ const LocationMarker = () => {
   }, [map]);
 
   return position === null ? null : (
-    <Marker position={position}>
+    <Marker position={position} icon={createReactIcon()}>
       <Popup>You are here</Popup>
     </Marker>
   );
@@ -174,7 +195,7 @@ function MapSearch() {
           />
           <LocationMarker />
           {reportMarkers.map(marker => (
-            <Marker key={marker.id} position={[marker.lat, marker.lng]}>
+            <Marker key={marker.id} position={[marker.lat, marker.lng]} icon={petIcon}>
               <Popup>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   {/*left */}
@@ -202,6 +223,7 @@ function MapSearch() {
     key={place.id}
     position={[place.lat, place.lng]}
     ref={markerRefs.current[place.id]}
+    icon={shelterIcon}
   >
     <Popup
       autoClose={false}
