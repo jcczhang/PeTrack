@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/PosterTemplates.css';
+import classicTemp from '../assets/images/templates/classic.jpg';
+import modernTemp from '../assets/images/templates/modern.jpg';
+import colorTemp from '../assets/images/templates/colorful.jpg';
+import MiniTemp from '../assets/images/templates/minimal.jpg';
 
 function PosterTemplates() {
   const location = useLocation();
@@ -16,25 +20,25 @@ function PosterTemplates() {
     {
       id: 1,
       name: 'Classic',
-      preview: '/templates/classic.png',
+      preview: classicTemp,
       description: 'Clean and professional design with focus on pet photo'
     },
     {
       id: 2,
       name: 'Modern',
-      preview: '/templates/modern.png',
+      preview: modernTemp,
       description: 'Contemporary layout with emphasis on key information'
     },
     {
       id: 3,
       name: 'Colorful',
-      preview: '/templates/colorful.png',
+      preview: colorTemp,
       description: 'Vibrant design to catch attention'
     },
     {
       id: 4,
       name: 'Minimal',
-      preview: '/templates/minimal.png',
+      preview: MiniTemp,
       description: 'Simple and elegant layout'
     }
   ];

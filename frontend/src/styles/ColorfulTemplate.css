@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&display=swap');
+
+.colorful-poster {
+  position: relative;
+  width: 8.5in;
+  margin: 20px auto;
+  padding: 10px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4eef9 100%);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  font-family: 'Nunito', sans-serif;
+  max-height: 11.5in;
+}
+
+/* Static background with paw prints */
+.animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.paw-print {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='rgba(0,0,0,0.1)' d='M256 224c-79.5 0-144 64.5-144 144s64.5 144 144 144 144-64.5 144-144-64.5-144-144-144zm0 240c-52.9 0-96-43.1-96-96s43.1-96 96-96 96 43.1 96 96-43.1 96-96 96zm144-336c0-26.5-21.5-48-48-48s-48 21.5-48 48 21.5 48 48 48 48-21.5 48-48zm-240 0c0-26.5-21.5-48-48-48S64 101.5 64 128s21.5 48 48 48 48-21.5 48-48zm224 64c-26.5 0-48 21.5-48 48s21.5 48 48 48 48-21.5 48-48-21.5-48-48-48zm-240 0c-26.5 0-48 21.5-48 48s21.5 48 48 48 48-21.5 48-48-21.5-48-48-48z'%3E%3C/path%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+}
+
+/* Header styles */
+.vibrant-header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.alert-text {
+  font-family: 'Bangers', cursive;
+  font-size: 4rem;
+  letter-spacing: 3px;
+  color: #ff3366;
+  text-shadow: 
+    3px 3px 0 #ffcc00,
+    -3px -3px 0 #4a90e2;
+  margin: 0;
+  transform: rotate(-2deg);
+}
+
+.pet-name-container {
+  margin-top: -40px;
+}
+
+.pet-name {
+  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: 900;
+  background-color: #4a90e2;
+  color: white;
+  padding: 5px 25px;
+  border-radius: 30px;
+  transform: rotate(1deg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Image section */
+.image-section {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 300px;
+  margin: 15px 0;
+  border: 8px solid;
+  border-image: linear-gradient(to right, #ff3366, #ffcc00, #4a90e2, #50c878, #9370db) 1;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.pet-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  color: #666;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Pet details grid */
+.pet-details-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.detail-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.card-label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 15px;
+  display: inline-block;
+}
+
+.card-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Color variants for detail cards */
+.type-card .card-label { background-color: #ff3366; }
+.breed-card .card-label { background-color: #ffcc00; }
+.color-card .card-label { background-color: #4a90e2; }
+.sex-card .card-label { background-color: #50c878; }
+.weight-card .card-label { background-color: #9370db; }
+.location-card .card-label { background-color: #ff7f50; }
+
+/* Description section */
+.description-container {
+  position: relative;
+  z-index: 1;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 15px 0;
+  border-left: 6px solid #4a90e2;
+}
+
+.description-title {
+  color: #4a90e2;
+  font-size: 1.5rem;
+  margin-top: 0;
+  border-bottom: 2px dotted #f0f0f0;
+  padding-bottom: 10px;
+}
+
+.description-content {
+  color: #444;
+  line-height: 1.6;
+}
+
+/* Contact section */
+.contact-container {
+  position: relative;
+  z-index: 1;
+  margin: 15px 0;
+}
+
+.contact-highlight {
+  background: linear-gradient(135deg, #ffcc00 0%, #ff3366 100%);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.contact-title {
+  color: white;
+  font-size: 1.8rem;
+  font-family: 'Bangers', cursive;
+  letter-spacing: 1px;
+  margin: 0 0 5px 0;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.contact-details {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.contact-details p {
+  margin: 5px 0;
+}
+
+.contact-info {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #333;
+}
+
+/* Print button */
+.print-section {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.print-button {
+  background-color: #4a90e2;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+
+/* Error message styling */
+.error-message {
+  text-align: center;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.error-message h2 {
+  color: #ff3366;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #4a90e2;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+/* Print media query */
+@media print {
+  .colorful-poster {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+  
+  .print-section {
+    display: none;
+  }
+  
+  .paw-print {
+    display: none;
+  }
+}

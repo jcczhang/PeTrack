@@ -1,0 +1,140 @@
+.minimal-poster {
+  width: 8.5in;
+  min-height: 11in;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fff;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.minimal-header {
+  text-align: center;
+}
+
+.minimal-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.minimal-subtitle {
+  font-size: 1.8rem;
+  color: #444;
+  margin-top: 0.5rem;
+}
+
+.minimal-main-section {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.minimal-header-image {
+  flex: 1;
+  max-width: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.minimal-header-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
+
+.minimal-no-image {
+  width: 100%;
+  height: 300px;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #888;
+  border-radius: 10px;
+}
+
+.minimal-pet-info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.minimal-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.minimal-detail-item {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.minimal-detail-label {
+  font-size: 0.85rem;
+  color: #777;
+  text-transform: uppercase;
+}
+
+.minimal-detail-value {
+  font-size: 1rem;
+  color: #222;
+  font-weight: 500;
+}
+
+.minimal-description-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.minimal-description-section p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.minimal-contact-section {
+  margin-top: auto;
+  text-align: center;
+}
+
+.minimal-contact-info {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.minimal-error-message {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.minimal-error-message h2 {
+  color: #b03a2e;
+  margin-bottom: 1.5rem;
+}
+
+@media print {
+  .minimal-poster {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+}

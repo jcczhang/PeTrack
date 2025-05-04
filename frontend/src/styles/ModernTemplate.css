@@ -5,6 +5,7 @@
 }
 
 .modern-poster {
+  width: 8.5in;
   background: white;
   min-height: 11in;
   display: flex;
@@ -39,6 +40,7 @@
   font-size: 2.5rem;
   font-weight: 600;
   margin: 0.5rem 0 0;
+  text-align: center;
 }
 
 .header-image {

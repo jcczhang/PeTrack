@@ -2,6 +2,8 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ClassicTemplate from './ClassicTemplate';
 import ModernTemplate from './ModernTemplate';
+import ColorfulTemplate from './ColorfulTemplate';
+import MinimalTemplate from './MinimalTemplate';
 import '../styles/PreviewPoster.css';
 
 function PreviewPoster() {
@@ -34,6 +36,10 @@ function PreviewPoster() {
         return <ClassicTemplate formData={formData} />;
       case 2:
         return <ModernTemplate formData={formData} />;
+      case 3:
+        return <ColorfulTemplate formData={formData} />;
+      case 4:
+        return <MinimalTemplate formData={formData} />;
       default:
         return <ClassicTemplate formData={formData} />;
     }
