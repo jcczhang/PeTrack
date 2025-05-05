@@ -74,7 +74,7 @@ function ReportPet() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer rg_v1_pvc89qg31s72x32q8crvtypkytmx9665vw5l_ngk',
+            Authorization: `${process.env.REACT_APP_NOGGIN_AI}`,
           },
           body: JSON.stringify({
             picture: base64Image,

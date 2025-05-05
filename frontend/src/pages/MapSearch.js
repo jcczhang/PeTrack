@@ -125,7 +125,7 @@ function MapSearch() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer rg_v1_3urloa8ck3b1o0p4twv53xwy3lhnqskms6ad_ngk',
+            Authorization: `${process.env.REACT_APP_NOGGIN_MAP}`,
           },
           body: JSON.stringify({
             address: addressText,
