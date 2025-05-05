@@ -17,7 +17,7 @@
 
 .progress-step {
   height: 100%;
-  background-color: #4CAF50;
+  background-color: #4C2965;
   border-radius: 2px;
   transition: width 0.3s ease;
 }
@@ -272,12 +272,12 @@ textarea {
 }
 
 .status-option:hover {
-  border-color: #4CAF50;
+  border-color: #4C2965;
   transform: translateY(-2px);
 }
 
 .status-option.selected {
-  border-color: #4CAF50;
+  border-color: #4C2965;
   background-color: rgba(76, 175, 80, 0.05);
 }
 
@@ -291,7 +291,7 @@ textarea {
 
 .status-icon {
   font-size: 2rem;
-  color: #4CAF50;
+  color: #4C2965;
   margin-bottom: 0.5rem;
 }
 
