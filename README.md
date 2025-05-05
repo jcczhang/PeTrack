@@ -30,6 +30,7 @@ REACT_APP_NOGGIN_MAP=Bearer your_api_token_here
 ```
 - This token is required to authenticate requests to the AI API.
 - Make sure the `.env` file is **not committed** to version control — add `.env`
+- Use this [google doc](https://docs.google.com/document/d/1p5pPzTCx0hf68Mg1eqWKUrK50Af5FlAd3YO6qydezCA/edit?tab=t.0) for env variables
 
 ### 4. Start the development server:
 ```bash
