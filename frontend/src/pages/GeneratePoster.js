@@ -69,31 +69,41 @@ function GeneratePoster() {
     setIsAnalyzing(true);
   
     try {
-      const data = new FormData();
-      data.append('image', formData.petImage);
-  
-      const response = await fetch('http://127.0.0.1:5000/api/analyze-pet', {
-        method: 'POST',
-        body: data,
+      // Convert image file to base64
+      const reader = new FileReader();
+      const base64Promise = new Promise((resolve, reject) => {
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
       });
-  
-      if (!response.ok) {
-        throw new Error('Failed to analyze image');
-      }
-  
-      const aiResults = await response.json();
+      reader.readAsDataURL(formData.petImage);
+      const base64Image = await base64Promise;
+
+      const response = await fetch(
+        'https://noggin.rea.gent/abundant-ox-1661',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer rg_v1_pvc89qg31s72x32q8crvtypkytmx9665vw5l_ngk',
+          },
+          body: JSON.stringify({
+            picture: base64Image,
+          }),
+        }
+      ).then(response => response.json());
+      const aiResults = response;
   
       // update
       setFormData(prev => ({
         ...prev,
         petType: aiResults.petType || prev.petType,
         breed: aiResults.breed || prev.breed,
-        color: aiResults.color || prev.color
+        color: aiResults.color || prev.color,
+        additionalDetails: aiResults.additionalDetails || prev.additionalDetails
       }));
+      alert('AI analysis complete! Form has been filled with detected information.');
   
-      alert('AI analysis complete! Form updated.');
     } catch (error) {
-      console.error('Error during AI analysis:', error);
       alert('Failed to analyze image. Please try again.');
     } finally {
       setIsAnalyzing(false);
@@ -103,7 +113,6 @@ function GeneratePoster() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form Data being submitted:', formData); // Debug log
     
     const submissionData = {
       petName: formData.petName,
