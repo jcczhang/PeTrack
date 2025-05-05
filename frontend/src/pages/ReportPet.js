@@ -112,7 +112,7 @@ function ReportPet() {
     if (step === 2 && !formData.petName.trim()) {
       setFormData(prev => ({
         ...prev,
-        petName: 'UNKNOWN'
+        petName: 'Unknown'
       }));
     }
 
