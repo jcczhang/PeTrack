@@ -59,31 +59,46 @@ function ReportPet() {
     setAiAnalysis('analyzing');
     
     try {
-      // TODO: Implement actual AI analysis
-      // This is a placeholder for the actual API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Convert image file to base64
+      const reader = new FileReader();
+      const base64Promise = new Promise((resolve, reject) => {
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+      });
+      reader.readAsDataURL(formData.photos[0]); // Using the first photo
+      const base64Image = await base64Promise;
+
+      const response = await fetch(
+        'https://noggin.rea.gent/abundant-ox-1661',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer rg_v1_pvc89qg31s72x32q8crvtypkytmx9665vw5l_ngk',
+          },
+          body: JSON.stringify({
+            picture: base64Image,
+          }),
+        }
+      ).then(response => response.json());
       
-      // Simulated AI analysis results
-      const analysisResults = {
-        breed: 'Golden Retriever',
-        age: '2-3 years',
-        color: 'Golden',
-        additionalInfo: 'Friendly golden retriever with red collar'
-      };
+      const aiResults = response;
       
       // Auto-fill form fields based on AI analysis
       setFormData(prev => ({
         ...prev,
-        petType: 'Dog',
-        breed: analysisResults.breed,
-        color: analysisResults.color,
-        description: `${analysisResults.additionalInfo}. Estimated age: ${analysisResults.age}`
+        petType: aiResults.petType || prev.petType,
+        breed: aiResults.breed || prev.breed,
+        color: aiResults.color || prev.color,
+        description: aiResults.additionalDetails || prev.description
       }));
       
       setAiAnalysis('complete');
+      alert('AI analysis complete! Form has been filled with detected information.');
     } catch (error) {
       setAiAnalysis('error');
       console.error('AI analysis failed:', error);
+      alert('Failed to analyze image. Please try again.');
     }
   };
 
@@ -92,6 +107,14 @@ function ReportPet() {
     const form = e.target.closest('form');
     const inputs = form.querySelectorAll('input[required]');
     let isValid = true;
+
+    // Set default value for petName if empty
+    if (step === 2 && !formData.petName.trim()) {
+      setFormData(prev => ({
+        ...prev,
+        petName: 'UNKNOWN'
+      }));
+    }
 
     inputs.forEach(input => {
       if (!input.value.trim()) {
